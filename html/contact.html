@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me - Let's Create Something Amazing</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* === CSS VARIABLES & RESET === */
+        :root {
+            --primary-font: 'Poppins', sans-serif;
+            --handwritten-font: 'Caveat', cursive;
+            --text-light: #ffffff;
+            --text-dim: rgba(255, 255, 255, 0.75);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-highlight: rgba(255, 255, 255, 0.3);
+            --gradient-text: linear-gradient(90deg, #ffad5a, #ff5e62, #c44dff);
+            --gradient-btn: linear-gradient(90deg, #ff7e5f, #da1b60, #9b51e0);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--primary-font);
+            color: var(--text-light);
+            min-height: 100vh;
+            /* Vibrant sunset background mimicking the original image */
+            background: 
+                linear-gradient(135deg, rgba(43, 16, 85, 0.6), rgba(117, 34, 93, 0.5), rgba(209, 86, 63, 0.4)),
+                url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop') center center / cover fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        /* === MAIN LAYOUT (TWO COLUMNS) === */
+        .main-content {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .left-panel, .right-panel {
+            flex: 1;
+        }
+
+        /* === LEFT PANEL (TEXT & INFO) === */
+        .header-tag {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ff9b26;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .header-tag i { color: #ffad5a; }
+
+        .main-heading {
+            font-size: 3.8rem;
+            line-height: 1.1;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .main-heading .gradient-text {
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+
+        .main-heading .gradient-text::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            border-radius: 4px;
+            background: var(--gradient-text);
+            opacity: 0.7;
+        }
+
+        .subtitle {
+            font-size: 1.05rem;
+            color: var(--text-dim);
+            margin-bottom: 40px;
+            line-height: 1.6;
+            max-width: 90%;
+        }
+
+        .contact-info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: relative;
+        }
+
+        .info-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px 20px;
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            width: fit-content;
+            min-width: 300px;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .info-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            background: var(--gradient-btn);
+            box-shadow: 0 4px 15px rgba(218, 27, 96, 0.4);
+        }
+
+        .info-details h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .info-details p {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+                                    .reply-note {
+            position: absolute;
+            right: 0;
+            top: 40%;
+            font-family: var(--handwritten-font);
+            color: #ffad5a;
+            font-size: 1.5rem;
+            transform: rotate(-8deg);
+            max-width: 150px;
+            line-height: 1.2;
+        }
+        
+        .reply-note span {
+            color: #ff9b26;
+            display: block;
+            border-bottom: 2px solid #ff5e62;
+            width: max-content;
+        }
+
+        /* === RIGHT PANEL (FORM) === */
+        .glass-form-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-highlight);
+            border-radius: 25px;
+            padding: 40px;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(255,255,255,0.1);
+            position: relative;
+        }
+
+        .form-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .form-header-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #c44dff, #ff5e62);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+        }
+
+        .form-header-text h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .form-header-text p {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        .dot-pattern {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            opacity: 0.5;
+            letter-spacing: 2px;
+            font-size: 1.2rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            position: relative;
+            flex: 1;
+            margin-bottom: 20px;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 18px;
+            top: 18px;
+            color: var(--text-dim);
+            font-size: 1rem;
+        }
+
+        .input-group input, .input-group textarea {
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 15px 15px 15px 48px;
+            color: var(--text-light);
+            font-family: var(--primary-font);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            border-color: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .input-group input::placeholder, .input-group textarea::placeholder {
+            color: var(--text-dim);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            background: var(--gradient-btn);
+            color: var(--text-light);
+            font-family: var(--primary-font);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 8px 25px rgba(218, 27, 96, 0.3);
+        }
+
+        .submit-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* === BOTTOM PANEL (SOCIALS) === */
+        .bottom-panel {
+            background: rgba(20, 10, 30, 0.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+ .bottom-left h4 {
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+        
+        .bottom-left h4 i { color: #ffad5a; }
+        
+        .bottom-left p {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-top: 5px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 25px;
+        }
+
+        .social-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-light);
+            transition: transform 0.3s ease;
+        }
+
+        .social-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .social-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid var(--glass-highlight);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.3rem;
+            background: rgba(255, 255, 255, 0.05);
+            transition: background 0.3s ease;
+        }
+
+        .social-item:hover .social-circle {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .social-item span {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        .bottom-right {
+            font-family: var(--handwritten-font);
+            font-size: 1.6rem;
+            color: #ff758c;
+            transform: rotate(-3deg);
+        }
+
+        /* === RESPONSIVE DESIGN === */
+        @media (max-width: 1024px) {
+            .main-content {
+                flex-direction: column;
+            }
+            .reply-note {
+                display: none; /* Hide floating note on smaller screens to prevent overlap */
+            }
+            .info-card {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-heading { font-size: 2.8rem; }
+            .form-row { flex-direction: column; gap: 0; }
+            .input-group { margin-bottom: 20px; }
+            .bottom-panel { justify-content: center; text-align: center; }
+            .bottom-left h4 { justify-content: center; }
+            .social-icons { flex-wrap: wrap; justify-content: center; }
+            .bottom-right { display: none; }
+        }
+        
+        @media (max-width: 480px) {
+            .glass-form-card { padding: 25px; }
+            .social-icons { gap: 15px; }
+            .social-circle { width: 40px; height: 40px; font-size: 1.1rem; }
+        }
+        
+        /* Success Message styling */
+        .success-msg {
+            display: none;
+            text-align: center;
+            color: #4CAF50;
+            background: rgba(76, 175, 80, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #4CAF50;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="main-content">
+            
+            <div class="left-panel">
+                <div class="header-tag">
+                    <i class="fa-solid fa-sparkles"></i> Let's Connect
+                </div>
+                
+                <h1 class="main-heading">
+                    Let's Create <br>
+                    <span class="gradient-text">Something Amazing</span>
+                </h1>
+                
+                <p class="subtitle">
+                    Have a project in mind, a question, or just want to say hi? I'd love to hear from you. Let's build something great together!
+                </p>
+
+                <div class="contact-info-list">
+                    <div class="info-card">
+                        <div class="info-icon" style="background: linear-gradient(135deg, #ff6a88, #ff99ac);">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div class="info-details">
+                            <h4>Email</h4>
+                            <p>ashim@example.com</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon" style="background: linear-gradient(135deg, #9b51e0, #d988ff);">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <div class="info-details">
+                            <h4>Phone</h4>
+                            <p>+91 98765 43210</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon" style="background: linear-gradient(135deg, #ff5e62, #ff9966);">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div class="info-details">
+                            <h4>Location</h4>
+                            <p>India</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon" style="background: linear-gradient(135deg, #f7b733, #fc4a1a);">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                        <div class="info-details">
+                            <h4>Availability</h4>
+                            <p>Mon - Sat, 10AM - 8PM IST</p>
+                        </div>
+                    </div>
+
+                    <div class="reply-note">
+                        I usually <br> reply within <br>
+                        <span>24 hours</span>
+                    </div>
+                </div>
+            </div>
+          <div class="right-panel">
+                <div class="glass-form-card">
+                    <div class="dot-pattern"><i class="fa-solid fa-braille"></i></div>
+                    
+                    <div class="form-header">
+                        <div class="form-header-icon">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </div>
+                        <div class="form-header-text">
+                            <h3>Send Me a Message</h3>
+                            <p>Fill out the form and I'll get back to you soon.</p>
+                        </div>
+                    </div>
+
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="input-group">
+                                <i class="fa-regular fa-user"></i>
+                                <input type="text" id="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="input-group">
+                                <i class="fa-regular fa-envelope"></i>
+                                <input type="email" id="email" placeholder="Your Email" required>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <i class="fa-solid fa-tag"></i>
+                            <input type="text" id="subject" placeholder="Subject" required>
+                        </div>
+
+                        <div class="input-group" style="margin-bottom: 25px;">
+                            <i class="fa-solid fa-pen"></i>
+                            <textarea id="message" placeholder="Your Message" required></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <i class="fa-regular fa-paper-plane"></i> Send Message
+                        </button>
+                        
+                        <div class="success-msg" id="successMsg">
+                            <i class="fa-solid fa-circle-check"></i> Message sent successfully! I'll be in touch.
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="bottom-panel">
+            <div class="bottom-left">
+                <h4><i class="fa-solid fa-sparkles"></i> Let's Connect Everywhere</h4>
+                <p>Find me on these platforms</p>
+            </div>
+
+            <div class="social-icons">
+                <a href="#" class="social-item">
+                    <div class="social-circle"><i class="fa-brands fa-github"></i></div>
+                    <span>GitHub</span>
+                </a>
+                <a href="#" class="social-item">
+                    <div class="social-circle"><i class="fa-brands fa-linkedin-in"></i></div>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="#" class="social-item">
+                    <div class="social-circle"><i class="fa-brands fa-x-twitter"></i></div>
+                    <span>Twitter</span>
+                </a>
+                <a href="#" class="social-item">
+                    <div class="social-circle"><i class="fa-brands fa-instagram"></i></div>
+                    <span>Instagram</span>
+                </a>
+                <a href="#" class="social-item">
+                    <div class="social-circle"><i class="fa-brands fa-youtube"></i></div>
+                    <span>YouTube</span>
+                </a>
+            </div>
+
+            <div class="bottom-right">
+                Let's turn ideas <br> into reality &hearts;
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent standard page reload for static hosting
+            
+            const btn = document.getElementById('submitBtn');
+            const successMsg = document.getElementById('successMsg');
+            
+            // 1. Change button state to show loading
+            const originalBtnHtml = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+            btn.style.opacity = '0.7';
+            btn.style.pointerEvents = 'none';
+
+            // 2. Simulate an API Call / Formspree request (Simulated with Timeout)
+            /* TO MAKE THIS REAL: 
+               Replace the setTimeout logic below with an actual fetch request to your Formspree endpoint.
+               Example:
+               fetch('https://formspree.io/f/YOUR_FORM_ID', {
+                   method: 'POST',
+                   body: new FormData(this),
+                   headers: { 'Accept': 'application/json' }
+               }).then(...)
+            */
+            setTimeout(() => {
+                // Reset form
+                this.reset();
+              // Revert button
+                btn.innerHTML = originalBtnHtml;
+                btn.style.opacity = '1';
+                btn.style.pointerEvents = 'auto';
+                
+                // Show success message
+                successMsg.style.display = 'block';
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                }, 5000);
+            }, 1500);
+        });
+    </script>
+            
