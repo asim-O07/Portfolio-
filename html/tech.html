@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Tech Stack Dashboard</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Devicon for Tech Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+    <!-- FontAwesome for standard icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #030712;
+            --panel-bg: rgba(10, 15, 35, 0.6);
+            --cyan: #00f0ff;
+            --purple: #b026ff;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border-glow: rgba(0, 240, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+            padding: 2rem;
+        }
+
+        /* Cyberpunk Background Grid */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: 
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Header Styles */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            color: var(--cyan);
+            border: 1px solid var(--border-glow);
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
+        }
+
+        .title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, var(--cyan), #3b82f6, var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.4));
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Main Dashboard Layout */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 2rem;
+            width: 100%;
+            max-width: 1400px;
+            margin-bottom: 2rem;
+        }
+
+        /* Glassmorphism Panels with Clipped Corners */
+        .panel {
+            background: var(--panel-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-glow);
+            padding: 2rem;
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 240, 255, 0.05), 0 0 15px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .panel:hover {
+            box-shadow: inset 0 0 25px rgba(0, 240, 255, 0.1), 0 0 20px rgba(0, 240, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        /* Sci-Fi Cut Corners */
+        .panel-left, .panel-right {
+            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+        }
+
+        /* Left Panel Specifics */
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 0.5rem;
+        }
+
+        .mission-text {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .highlight-blue { color: var(--cyan); font-weight: 600; }
+        .highlight-purple { color: var(--purple); font-weight: 600; }
+
+        .code-block {
+            background: rgba(0,0,0,0.4);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: #a78bfa;
+            border-left: 2px solid var(--cyan);
+        }
+        .code-key { color: #38bdf8; }
+        .code-val { color: #fde047; }
+        .code-bracket { color: var(--text-main); }
+
+        /* Center Stage (Hexagons & Podium) */
+        .center-stage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hex-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            max-width: 600px;
+            z-index: 2;
+        }
+
+        .hex-wrapper {
+            position: relative;
+            width: 100px;
+            height: 110px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        
+        .hex-wrapper:hover {
+            transform: scale(1.1) translateY(-10px);
+        }
+
+        .hexagon {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 20, 40, 0.8);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
+        }
+
+        /* Hexagon colored glowing borders */
+        .hex-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: var(--hex-color, var(--cyan));
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            z-index: -1;
+            opacity: 0.7;
+            box-shadow: 0 0 20px var(--hex-color, var(--cyan));
+        }
+
+        .hex-icon {
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+            z-index: 2;
+        }
+        
+        .hex-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        /* Podium Glow */
+        .podium {
+            position: absolute;
+            bottom: -50px;
+            width: 100%;
+            height: 150px;
+            border-radius: 50%;
+            background: radial-gradient(ellipse at center, rgba(0, 240, 255, 0.2) 0%, transparent 70%);
+            border: 2px solid rgba(0, 240, 255, 0.4);
+            transform: scaleY(0.3);
+            box-shadow: 
+                0 0 50px rgba(0, 240, 255, 0.6), 
+                inset 0 0 30px rgba(0, 240, 255, 0.8);
+            z-index: 1;
+            animation: pulse 3s infinite alternate;
+        }
+
+        .podium-rings {
+            position: absolute;
+            bottom: -30px;
+            width: 80%;
+            height: 120px;
+            border-radius: 50%;
+            border: 1px dashed rgba(176, 38, 255, 0.5);
+            transform: scaleY(0.3);
+            z-index: 1;
+        }
+
+        /* Right Panel - Experience Bars */
+        .skill-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: conic-gradient(var(--cyan) var(--percent), #1e293b 0);
+            position: relative;
+            margin-right: 1rem;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+        }
+
+        .progress-circle::before {
+            content: '';
+            position: absolute;
+            width: 48px;
+            height: 48px;
+            background: var(--bg-color);
+            border-radius: 50%;
+        }
+       .progress-value {
+            position: relative;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .skill-info h4 {
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+            color: #fff;
+        }
+
+        .skill-info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.2;
+        }
+
+        /* Bottom Panel - Tools */
+        .tools-panel {
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 2rem;
+            clip-path: polygon(15px 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 0 100%, 0 15px);
+            text-align: center;
+        }
+
+        .tools-panel-header {
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tools-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .tool-box {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            width: 90px;
+            height: 90px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .tool-box:hover {
+            border-color: var(--cyan);
+            background: rgba(0, 240, 255, 0.05);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .tool-box i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-box span {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; box-shadow: 0 0 40px rgba(0, 240, 255, 0.4), inset 0 0 20px rgba(0, 240, 255, 0.6); }
+            100% { opacity: 1; box-shadow: 0 0 60px rgba(0, 240, 255, 0.8), inset 0 0 40px rgba(0, 240, 255, 1); }
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 1024px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            .title {
+                font-size: 2.5rem;
+            }
+            .center-stage {
+                order: -1;
+                margin-bottom: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="badge"><i class="fa-solid fa-code"></i> MY TECH STACK</div>
+        <h1 class="title">TECHNOLOGIES</h1>
+        <p class="subtitle">The tools & technologies I use to build modern and powerful digital experiences.</p>
+    </header>
+
+    <main class="dashboard">
+        <!-- Left Panel -->
+        <aside class="panel panel-left">
+            <div class="panel-header">
+                <span><i class="fa-solid fa-cube"></i> TECH ENTHUSIAST</span>
+                <span><i class="fa-solid fa-ellipsis"></i></span>
+            </div>
+            <p class="mission-text">
+                I love turning complex <span class="highlight-blue">ideas</span> into simple, beautiful & efficient <span class="highlight-purple">solutions.</span>
+            </p>
+            <div class="code-block">
+                <span class="code-bracket">></span> <span class="code-purple">const</span> <span class="code-key">developer</span> = {<br>
+                &nbsp;&nbsp;<span class="code-key">passion</span>: <span class="code-val">"Building"</span>,<br>
+                &nbsp;&nbsp;<span class="code-key">focus</span>: <span class="code-val">"AI & Web"</span>,<br>
+                &nbsp;&nbsp;<span class="code-key">goal</span>: <span class="code-val">"Make Impact"</span><br>
+                };
+            </div>
+        </aside>
+
+        <!-- Center Stage (Hexagons) -->
+        <section class="center-stage">
+            <div class="hex-grid">
+                <!-- Row 1 -->
+                <div class="hex-wrapper" style="--hex-color: #ff5722;">
+                    <div class="hexagon">
+                        <i class="devicon-html5-plain hex-icon" style="color: #ff5722;"></i>
+                        <span class="hex-label">HTML5</span>
+                    </div>
+                </div>
+                <div class="hex-wrapper" style="--hex-color: #2196f3;">
+                    <div class="hexagon">
+                        <i class="devicon-css3-plain hex-icon" style="color: #2196f3;"></i>
+                        <span class="hex-label">CSS3</span>
+                    </div>
+                </div>
+                <div class="hex-wrapper" style="--hex-color: #ffeb3b;">
+                    <div class="hexagon">
+                        <i class="devicon-javascript-plain hex-icon" style="color: #ffeb3b;"></i>
+                        <span class="hex-label">JavaScript</span>
+                    </div>
+                </div>
+                <div class="hex-wrapper" style="--hex-color: #61dafb;">
+                    <div class="hexagon">
+                        <i class="devicon-react-original hex-icon" style="color: #61dafb;"></i>
+                        <span class="hex-label">React</span>
+                    </div>
+                </div>
+                <!-- Row 2 -->
+                <div class="hex-wrapper" style="--hex-color: #4caf50;">
+                    <div class="hexagon">
+                        <i class="devicon-nodejs-plain hex-icon" style="color: #4caf50;"></i>
+                        <span class="hex-label">Node.js</span>
+                    </div>
+                </div>
+                <div class="hex-wrapper" style="--hex-color: #ffc107;">
+                    <div class="hexagon">
+                        <i class="devicon-python-plain hex-icon" style="color: #ffc107;"></i>
+                        <span class="hex-label">Python</span>
+                    </div>
+                </div>
+                <div class="hex-wrapper" style="--hex-color: #4caf50;">
+                    <div class="hexagon">
+                        <i class="devicon-mongodb-plain hex-icon" style="color: #4caf50;"></i>
+                        <span class="hex-label">MongoDB</span>
+                    </div>
+                </div>
+                <div class="hex-wrapper" style="--hex-color: #00bcd4;">
+                    <div class="hexagon">
+                        <i class="devicon-tailwindcss-plain hex-icon" style="color: #00bcd4;"></i>
+                        <span class="hex-label">Tailwind CSS</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Glowing Base -->
+            <div class="podium-rings"></div>
+            <div class="podium"></div>
+        </section>
+
+        <!-- Right Panel -->
+        <aside class="panel panel-right">
+            <div class="panel-header">
+                <span><i class="fa-solid fa-chart-simple"></i> EXPERIENCE LEVEL</span>
+            </div>
+            
+            <div class="skill-row">
+                <div class="progress-circle" style="--percent: 95%; --cyan: #b026ff;">
+                    <span class="progress-value">95%</span>
+                </div>
+                <div class="skill-info">
+                    <h4>Frontend</h4>
+                    <p>Building responsive<br>and interactive UIs</p>
+                </div>
+            </div>
+
+            <div class="skill-row">
+                <div class="progress-circle" style="--percent: 90%; --cyan: #3b82f6;">
+                    <span class="progress-value">90%</span>
+                </div>
+                <div class="skill-info">
+                    <h4>Backend</h4>
+                    <p>Developing robust<br>and scalable APIs</p>
+                </div>
+            </div>
+
+            <div class="skill-row">
+                <div class="progress-circle" style="--percent: 85%; --cyan: #00f0ff;">
+                    <span class="progress-value">85%</span>
+                </div>
+                <div class="skill-info">
+                    <h4>Database</h4>
+                    <p>Designing efficient<br>and optimized data</p>
+                </div>
+            </div>
+          
+            <div class="skill-row">
+                <div class="progress-circle" style="--percent: 92%; --cyan: #38bdf8;">
+                    <span class="progress-value">92%</span>
+                </div>
+                <div class="skill-info">
+                    <h4>AI / ML</h4>
+                    <p>Building AI-powered<br>smart solutions</p>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Bottom Panel -->
+    <footer class="panel tools-panel">
+        <div class="tools-panel-header">I USE THESE TOOLS</div>
+        <div class="tools-grid">
+            <div class="tool-box">
+                <i class="devicon-git-plain" style="color: #f14e32;"></i>
+                <span>Git</span>
+            </div>
+            <div class="tool-box">
+                <i class="devicon-github-original" style="color: #ffffff;"></i>
+                <span>GitHub</span>
+            </div>
+            <div class="tool-box">
+                <i class="devicon-vscode-plain" style="color: #007acc;"></i>
+                <span>VS Code</span>
+            </div>
+            <div class="tool-box">
+                <i class="devicon-figma-plain" style="color: #f24e1e;"></i>
+                <span>Figma</span>
+            </div>
+            <div class="tool-box">
+                <i class="devicon-firebase-plain" style="color: #ffca28;"></i>
+                <span>Firebase</span>
+            </div>
+            <div class="tool-box" style="background: rgba(255,255,255,0.1);">
+                <!-- Vercel Logo approximation -->
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="white" style="margin-bottom: 0.5rem;"><path d="M24 22.525H0l12-21.05 12 21.05z"/></svg>
+                <span>Vercel</span>
+            </div>
+            <div class="tool-box">
+                <i class="fa-solid fa-space-shuttle" style="color: #ff6c37;"></i>
+                <span>Postman</span>
+            </div>
+            <div class="tool-box">
+                <i class="devicon-docker-plain" style="color: #2496ed;"></i>
+                <span>Docker</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Optional JS: Add floating hover effect delays for smoother entrance
+        document.addEventListener('DOMContentLoaded', () => {
+            const hexes = document.querySelectorAll('.hex-wrapper');
+            hexes.forEach((hex, index) => {
+                hex.style.animation = `fadeInDown 0.5s ease-out ${index * 0.1}s forwards`;
+                hex.style.opacity = '0';
+            });
+        });
+    </script>
+</body>
+</html>
