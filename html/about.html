@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ashim | About & Skills</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* === CSS Variables === */
+        :root {
+            --bg-dark: #040d12;
+            --bg-card: rgba(14, 34, 38, 0.4);
+            --primary-cyan: #00df9a;
+            --primary-dark: #008f63;
+            --text-main: #ffffff;
+            --text-muted: #a0aec0;
+            --glass-border: rgba(0, 223, 154, 0.15);
+            --glass-bg: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+            --gradient-text: linear-gradient(90deg, #00df9a, #008f63);
+            --font-main: 'Poppins', sans-serif;
+            --font-signature: 'Caveat', cursive;
+        }
+
+        /* === Global Resets & Base === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-main);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        /* === Dynamic Background Glows === */
+        .bg-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.5;
+            transition: transform 0.5s ease-out;
+        }
+        .glow-1 {
+            top: -10%; left: -5%;
+            width: 400px; height: 400px;
+            background: rgba(0, 223, 154, 0.15);
+        }
+        .glow-2 {
+            bottom: 20%; right: -5%;
+            width: 500px; height: 500px;
+            background: rgba(0, 143, 99, 0.15);
+        }
+        .glow-3 {
+            top: 40%; left: 30%;
+            width: 300px; height: 300px;
+            background: rgba(0, 223, 154, 0.1);
+        }
+
+        /* === Utility Classes === */
+        .glass-panel {
+            background: var(--glass-bg);
+            background-color: var(--bg-card);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .text-gradient {
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        /* === Navigation === */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--primary-cyan);
+            font-style: italic;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        .nav-links a.active {
+            color: var(--primary-cyan);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: var(--primary-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary-cyan);
+        }
+
+        /* === About Section === */
+        .about-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+            align-items: center;
+        }
+
+        /* Left Side: Visuals */
+        .about-visuals {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .profile-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .organic-shape {
+            width: 100%;
+            aspect-ratio: 4/5;
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            border: 2px solid rgba(0, 223, 154, 0.3);
+            box-shadow: inset 0 0 50px rgba(0, 223, 154, 0.1), 0 0 30px rgba(0, 223, 154, 0.1);
+            overflow: hidden;
+            position: relative;
+            animation: morph 8s ease-in-out infinite;
+        }
+
+        @keyframes morph {
+            0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+            100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+        }
+
+        .organic-shape img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Placeholder styling */
+            background: #0a191d;
+        }
+
+        .signature {
+            position: absolute;
+            bottom: 20px;
+            right: 40px;
+            font-family: var(--font-signature);
+            font-size: 3rem;
+            color: var(--primary-cyan);
+            transform: rotate(-10deg);
+            text-shadow: 0 0 15px rgba(0, 223, 154, 0.4);
+            z-index: 10;
+        }
+
+        /* Floating Card */
+        .floating-card {
+            position: absolute;
+            top: 20%;
+            left: -10%;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            animation: float 5s ease-in-out infinite;
+            z-index: 10;
+            width: 200px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .icon-circle {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: rgba(0, 223, 154, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-cyan);
+            margin-bottom: 5px;
+        }
+
+        .floating-card h4 { font-size: 0.9rem; font-weight: 500; }
+        .floating-card p { font-size: 0.75rem; color: var(--text-muted); }
+        .floating-card .arrow { align-self: flex-end; color: var(--primary-cyan); cursor: pointer; }
+
+        /* Stats Card */
+        .stats-card {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            padding: 2rem;
+            text-align: center;
+            gap: 1rem;
+        }
+
+        .stat-item i {
+            font-size: 1.5rem;
+            color: var(--primary-cyan);
+            margin-bottom: 10px;
+        }
+        .stat-item h3 { font-size: 1.8rem; font-weight: 700; margin-bottom: 5px; }
+        .stat-item p { font-size: 0.8rem; color: var(--text-muted); }
+
+        /* Right Side: Text & Info */
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .badge::after {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--primary-cyan);
+        }
+
+        .about-content h1 {
+            font-size: 3.5rem;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .about-content p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .highlight-text {
+            color: var(--primary-cyan);
+            font-weight: 500;
+        }
+       .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: transparent;
+            border: 1px solid var(--primary-cyan);
+            color: var(--text-main);
+            padding: 10px 25px;
+            border-radius: 30px;
+            width: fit-content;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-download .icon {
+            background: var(--primary-cyan);
+            color: var(--bg-dark);
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-download:hover {
+            box-shadow: 0 0 20px rgba(0, 223, 154, 0.3);
+            background: rgba(0, 223, 154, 0.05);
+        }
+        .btn-download:hover .icon {
+            transform: translateY(2px);
+        }
+
+        .personal-info {
+            margin-top: 1rem;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 15px;
+        }
+        .info-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+        .info-label {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+        .info-label i { color: var(--primary-cyan); }
+        .info-value { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* === Skills Section === */
+        .skills-section {
+            margin: 5rem 0;
+            padding: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            position: relative;
+        }
+
+        /* Decorative line pattern */
+        .skills-section::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 200px; height: 200px;
+            background-image: repeating-radial-gradient(circle at 0 100%, transparent 0, transparent 10px, rgba(0, 223, 154, 0.1) 10px, rgba(0, 223, 154, 0.1) 11px);
+            border-bottom-left-radius: 20px;
+            pointer-events: none;
+        }
+
+        .skills-header h2 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+        .skills-header h2 span { font-family: var(--font-signature); font-size: 3.5rem; }
+
+        /* Progress Bars */
+        .skills-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .skill-item i {
+            width: 25px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .skill-item .fab.fa-html5 { color: #e34c26; }
+        .skill-item .fab.fa-css3-alt { color: #264de4; }
+        .skill-item .fab.fa-js { color: #f0db4f; }
+        .skill-item .fab.fa-react { color: #61dbfb; }
+        .skill-item .fab.fa-node-js { color: #68a063; }
+        .skill-item .fab.fa-python { color: #4b8bbe; }
+
+        .skill-name { width: 100px; font-weight: 500; font-size: 0.95rem; }
+
+        .progress-bar {
+            flex: 1;
+            height: 8px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-text);
+            border-radius: 10px;
+            width: 0; /* Animated via JS */
+            transition: width 1.5s cubic-bezier(0.1, 0.5, 0.1, 1);
+            position: relative;
+        }
+        
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 10px; height: 100%;
+            background: rgba(255,255,255,0.5);
+            filter: blur(2px);
+        }
+
+        .skill-percent { width: 40px; text-align: right; font-size: 0.85rem; color: var(--text-muted); }
+
+        /* Skill Icons Grid */
+        .skills-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .skills-right > p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .icons-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .icon-box {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            border-radius: 15px;
+            background: rgba(14, 34, 38, 0.6);
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .icon-box:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-cyan);
+            box-shadow: 0 10px 20px rgba(0, 223, 154, 0.15);
+        }
+
+        /* Specific Icon Colors inside Grid */
+        .icon-box:nth-child(1) { color: #61dbfb; } /* React */
+        .icon-box:nth-child(2) { color: #68a063; } /* Node */
+        .icon-box:nth-child(3) { color: #47A248; } /* Mongo/Leaf */
+        .icon-box:nth-child(4) { color: #38bdf8; } /* Tailwind/Wave */
+        .icon-box:nth-child(5) { color: #f1502f; } /* Git */
+        .icon-box:nth-child(6) { color: #ffffff; } /* Github */
+        .icon-box:nth-child(7) { color: #FFCA28; } /* Firebase */
+        .icon-box:nth-child(8) { color: #ffffff; } /* Vercel/Triangle */
+        .icon-box:nth-child(9) { color: var(--primary-cyan); font-weight: 700; font-size: 1.5rem;} /* AI Text */
+
+
+        /* === Mobile Menu Button === */
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* === Responsive Design === */
+        @media (max-width: 992px) {
+            .about-section, .skills-section {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .floating-card {
+                left: 0;
+                top: 0;
+            }
+            .about-content h1 { font-size: 2.8rem; }
+            .skills-section { padding: 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 80px; left: 0; right: 0;
+                background: var(--bg-dark);
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                border-bottom: 1px solid var(--glass-border);
+                z-index: 100;
+              }
+            .nav-links.active { display: flex; }
+            .mobile-toggle { display: block; }
+            
+            .stats-card { padding: 1.5rem 1rem; }
+            .stat-item h3 { font-size: 1.5rem; }
+            
+            .icons-grid { gap: 1rem; }
+            .icon-box { font-size: 2rem; }
+        }
+
+        @media (max-width: 480px) {
+            .about-content h1 { font-size: 2.2rem; }
+            .stats-card { grid-template-columns: 1fr; gap: 2rem; }
+            .info-row { flex-direction: column; align-items: flex-start; gap: 5px; }
+            .skills-list { gap: 1rem; }
+            .skill-item { flex-wrap: wrap; }
+            .progress-bar { min-width: 100%; order: 3; margin-top: 5px; }
+            .skill-percent { margin-left: auto; }
+            .icons-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Dynamic Glows -->
+    <div class="bg-glow glow-1" id="glow1"></div>
+    <div class="bg-glow glow-2" id="glow2"></div>
+    <div class="bg-glow glow-3"></div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <nav>
+            <div class="logo">
+                <span>A</span>\ ASHIM
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about" class="active">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-toggle" id="mobileToggle">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </nav>
+
+        <!-- About Section -->
+        <main class="about-section">
+            <!-- Left Side: Profile & Stats -->
+            <div class="about-visuals">
+                
+                <!-- Floating Opportunities Card -->
+                <div class="glass-panel floating-card">
+                    <div class="icon-circle">
+                        <i class="fa-regular fa-user"></i>
+                    </div>
+                    <h4>Available for <br><span class="text-gradient">opportunities</span></h4>
+                    <p>Let's build something amazing together!</p>
+                    <i class="fa-solid fa-arrow-right arrow"></i>
+                </div>
+
+                <div class="profile-wrapper">
+                    <div class="organic-shape">
+                        <!-- REPLACE THIS SRC with your actual image path or data URI -->
+                        <!-- e.g., src="assets/ashim-profile.png" -->
+                        <img src="https://via.placeholder.com/400x500/0a191d/00df9a?text=Insert+Profile+Image" alt="Ashim Profile">
+                    </div>
+                    <div class="signature">Ashim</div>
+                </div>
+
+                <!-- Stats Footer Card -->
+                <div class="glass-panel stats-card">
+                    <div class="stat-item">
+                        <i class="fa-solid fa-rocket"></i>
+                        <h3>3+</h3>
+                        <p>Projects Completed</p>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fa-solid fa-code"></i>
+                        <h3>1+</h3>
+                        <p>Years of Learning</p>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fa-solid fa-mug-hot"></i>
+                        <h3>500+</h3>
+                        <p>Hours of Coding</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Text & Info Details -->
+            <div class="about-content">
+                <div class="badge">ABOUT ME</div>
+                
+                <h1>Crafting Digital Experiences That <span class="text-gradient">Matter.</span> <i class="fa-solid fa-wand-magic-sparkles" style="font-size: 1.5rem; color: var(--primary-cyan);"></i></h1>
+                
+                <p>I'm Ashim, an <span class="highlight-text">AI Developer & Full Stack Developer</span> passionate about building intelligent, user-focused, and futuristic web applications.</p>
+                
+                <p>I love turning ideas into real-world solutions using modern technologies and a touch of creativity.</p>
+                
+                <a href="#" class="btn-download">
+                    Download CV
+                    <div class="icon">
+                        <i class="fa-solid fa-download"></i>
+                    </div>
+                </a>
+
+                <div class="glass-panel personal-info">
+                    <div class="info-row">
+                        <div class="info-label"><i class="fa-regular fa-calendar"></i> Birthday</div>
+                        <div class="info-value">18 March 2007</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label"><i class="fa-regular fa-user"></i> Location</div>
+                        <div class="info-value">India</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label"><i class="fa-regular fa-envelope"></i> Email</div>
+                        <div class="info-value">ashim@example.com</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label"><i class="fa-solid fa-link"></i> Languages</div>
+                        <div class="info-value">English, Hindi</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Skills Section -->
+        <section class="glass-panel skills-section" id="skills">
+            <!-- Left Side: Progress Bars -->
+            <div>
+                <div class="skills-header">
+                    <h2>My <span class="text-gradient">Skills</span></h2>
+                </div>
+                
+                <div class="skills-list" id="skillsList">
+                    <!-- Data attributes hold the target percentage for JS animation -->
+                    <div class="skill-item">
+                        <i class="fa-brands fa-html5"></i>
+                        <span class="skill-name">HTML</span>
+                        <div class="progress-bar"><div class="progress-fill" data-width="95%"></div></div>
+                        <span class="skill-percent">95%</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fa-brands fa-css3-alt"></i>
+                        <span class="skill-name">CSS</span>
+                        <div class="progress-bar"><div class="progress-fill" data-width="90%"></div></div>
+                        <span class="skill-percent">90%</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fa-brands fa-js"></i>
+                        <span class="skill-name">JavaScript</span>
+                        <div class="progress-bar"><div class="progress-fill" data-width="85%"></div></div>
+                        <span class="skill-percent">85%</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fa-brands fa-react"></i>
+                        <span class="skill-name">React</span>
+                        <div class="progress-bar"><div class="progress-fill" data-width="80%"></div></div>
+                        <span class="skill-percent">80%</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fa-brands fa-node-js"></i>
+                        <span class="skill-name">Node.js</span>
+                        <div class="progress-bar"><div class="progress-fill" data-width="75%"></div></div>
+                        <span class="skill-percent">75%</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fa-brands fa-python"></i>
+                        <span class="skill-name">Python</span>
+                        <div class="progress-bar"><div class="progress-fill" data-width="70%"></div></div>
+                        <span class="skill-percent">70%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Grid Icons -->
+            <div class="skills-right">
+                <p>Technologies I work with to bring <span class="highlight-text">ideas to life.</span></p>
+                <div class="icons-grid">
+                    <div class="icon-box"><i class="fa-brands fa-react"></i></div>
+                    <div class="icon-box"><i class="fa-brands fa-node"></i></div>
+                    <div class="icon-box"><i class="fa-solid fa-leaf"></i></div>
+                    <div class="icon-box"><i class="fa-solid fa-water"></i></div>
+                    <div class="icon-box"><i class="fa-brands fa-git-alt"></i></div>
+                    <div class="icon-box"><i class="fa-brands fa-github"></i></div>
+                    <div class="icon-box"><i class="fa-solid fa-fire"></i></div>
+                    <div class="icon-box"><i class="fa-solid fa-caret-up"></i></div>
+                    <div class="icon-box">AI</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Interactive JavaScript -->
+    <script>
+        // 1. Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileToggle.querySelector('i');
+            if(navLinks.classList.contains('active')) {
+                icon.classList.replace('fa-bars', 'fa-xmark');
+            } else {
+                icon.classList.replace('fa-xmark', 'fa-bars');
+            }
+        });
+
+        // 2. Animate Skill Progress Bars on Scroll
+        const progressFills = document.querySelectorAll('.progress-fill');
+        
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const width = el.getAttribute('data-width');
+                    el.style.width = width;
+                    observer.unobserve(el); // Animate only once
+                }
+            });
+        }, observerOptions);
+
+        progressFills.forEach(fill => {
+            observer.observe(fill);
+        });
+
+        // 3. Dynamic Background Parallax based on Mouse Movement
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            const glow1 = document.getElementById('glow1');
+            const glow2 = document.getElementById('glow2');
+            
+            // Subtle movement opposite to mouse
+            glow1.style.transform = `translate(${x * -30}px, ${y * -30}px)`;
+            glow2.style.transform = `translate(${x * 40}px, ${y * 40}px)`;
+        });
+    </script>
+</body>
+</html>
